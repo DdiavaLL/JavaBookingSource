@@ -14,7 +14,8 @@ import java.time.LocalTime;
 public class Reservation implements Serializable{
     @Id
     private Integer id;
-    private String resource;
+    private Resource resource;
+    private User user;
     private LocalDate date;
     private LocalTime duration;
 
@@ -22,9 +23,10 @@ public class Reservation implements Serializable{
         super();
     }
 
-    public Reservation(Integer id, String resource, LocalDate date, LocalTime duration) {
+    public Reservation(Integer id, Resource resource, User user, LocalDate date, LocalTime duration) {
         this.id = id;
         this.resource = resource;
+        this.user = user;
         this.date = date;
         this.duration = duration;
     }
@@ -37,12 +39,20 @@ public class Reservation implements Serializable{
         this.id = id;
     }
 
-    public String getResource() {
+    public Resource getResource() {
         return resource;
     }
 
-    public void setResource(String resource) {
+    public void setResource(Resource resource) {
         this.resource = resource;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public LocalDate getDate() {
