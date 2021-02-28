@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ResourceRepository extends JpaRepository<Resource, Integer>{
+    Resource findByResourceEquals(String resource);
 }
