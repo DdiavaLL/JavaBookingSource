@@ -1,6 +1,7 @@
 package com.vlter.bookingsource.restservice.models;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by Tereshchenko on 17.02.2021.
@@ -8,7 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "resources")
-public class Resource {
+public class Resource implements Serializable {
     @Id
     private Integer id;
     private String resource;
@@ -19,6 +20,8 @@ public class Resource {
         this.id = id;
         this.resource = resource;
     }
+
+    public Resource(String resource) { this.resource = resource; }
 
     public Integer getId() {
         return id;

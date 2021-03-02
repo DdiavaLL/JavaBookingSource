@@ -1,6 +1,8 @@
 package com.vlter.bookingsource.restservice.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -11,7 +13,12 @@ import java.io.Serializable;
 @Table(name = "users")
 public class User implements Serializable {
     @Id
+    @SequenceGenerator(name = "usersSeq", sequenceName = "users_sequence", allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usersSeq")
     private Integer id;
+
+    @Size(max = 100, message = "Данные пользователя должны быть не длинее 100 символов!")
+    @NotBlank(message = "Во входящем запросе отсутствуют данные пользователя!")
     private String user;
 
     public User() {
@@ -22,6 +29,8 @@ public class User implements Serializable {
         this.id = id;
         this.user = user;
     }
+
+    public User(String user) { this.user = user; }
 
     public Integer getId() {
         return id;
