@@ -1,6 +1,7 @@
 package com.vlter.bookingsource.restservice.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -13,20 +14,34 @@ import java.time.LocalTime;
 @Table(name = "reservations")
 public class Reservation implements Serializable{
     @Id
+    @SequenceGenerator(name = "reservationSeq", sequenceName = "reservations_sequence", allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reservationsSeq")
     private Integer id;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "resource_id", nullable = false)
+    @NotNull(message = "Во входящем запросе отсутствует ресурс, который необходимо зарезервировать!")
     private Resource resource;
-    private User user;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "reservationuser_id", nullable = false)
+    @NotNull(message = "Во входящем запросе отсутствует пользователь, резирвирующий ресурс!")
+    private ReservationUser reservationuser;
+
+    @NotNull(message = "Во входящем запросе отсутствует дата резервирования ресурса!")
     private LocalDate date;
+
+    @NotNull(message = "Во входящем запросе отсутствует длительность резервирования ресурса!")
     private LocalTime duration;
 
     public Reservation() {
         super();
     }
 
-    public Reservation(Integer id, Resource resource, User user, LocalDate date, LocalTime duration) {
+    public Reservation(Integer id, Resource resource, ReservationUser reservationuser, LocalDate date, LocalTime duration) {
         this.id = id;
         this.resource = resource;
-        this.user = user;
+        this.reservationuser = reservationuser;
         this.date = date;
         this.duration = duration;
     }
@@ -47,12 +62,12 @@ public class Reservation implements Serializable{
         this.resource = resource;
     }
 
-    public User getUser() {
-        return user;
+    public ReservationUser getReservationuser() {
+        return reservationuser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setReservationuser(ReservationUser reservationuser) {
+        this.reservationuser = reservationuser;
     }
 
     public LocalDate getDate() {

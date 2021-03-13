@@ -21,7 +21,7 @@ public class ResourceController {
 
     // Список всех ресурсов
     @GetMapping()
-    public List getAllUsers() {
+    public List getAllResources() {
         return resourceService.resourceRepository.findAll();
     }
 
@@ -37,7 +37,7 @@ public class ResourceController {
 
     // Добавление ресурса
     @PostMapping()
-    public Serializable postResource(@PathVariable Resource resource) {
+    public Serializable postResource(@RequestBody Resource resource) {
         Resource rezResource = resourceService.addResource(resource);
         return rezResource;
     }
