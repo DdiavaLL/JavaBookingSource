@@ -44,7 +44,7 @@ public class ReservationUserController {
 
     // Изменение информации о пользователе с указанным id
     @PatchMapping("/{id}")
-    public Serializable updateUser(@PathVariable Integer id, @PathVariable ReservationUser reservationUserDetails) {
+    public Serializable updateUser(@PathVariable Integer id, @RequestBody ReservationUser reservationUserDetails) {
         ReservationUser findRez = reservationUserService.reservationUserRepository.findById(id).orElse(null);
         reservationUserService.updateUser(id, reservationUserDetails);
         return findRez;

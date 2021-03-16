@@ -44,6 +44,7 @@ public class ReservationService {
             curReservation.setReservationuser(reservationDetails.getReservationuser());
             curReservation.setDate(reservationDetails.getDate());
             curReservation.setDuration(reservationDetails.getDuration());
+            saveReservation(curReservation, helpReservationUser, helpResource);
         }
     }
 

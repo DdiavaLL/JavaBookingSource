@@ -1,5 +1,7 @@
 package com.vlter.bookingsource.restservice.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -14,7 +16,7 @@ import java.time.LocalTime;
 @Table(name = "reservations")
 public class Reservation implements Serializable{
     @Id
-    @SequenceGenerator(name = "reservationSeq", sequenceName = "reservations_sequence", allocationSize = 1, initialValue = 1)
+    @SequenceGenerator(name = "reservationsSeq", sequenceName = "reservations_sequence", allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reservationsSeq")
     private Integer id;
 
@@ -70,18 +72,18 @@ public class Reservation implements Serializable{
         this.reservationuser = reservationuser;
     }
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     public LocalDate getDate() {
         return date;
     }
-
     public void setDate(LocalDate date) {
         this.date = date;
     }
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     public LocalTime getDuration() {
         return duration;
     }
-
     public void setDuration(LocalTime duration) {
         this.duration = duration;
     }

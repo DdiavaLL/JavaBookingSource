@@ -44,7 +44,7 @@ public class ResourceController {
 
     // Изменение информации о ресурсе с указанным id
     @PatchMapping("/{id}")
-    public Serializable updateResource(@PathVariable Integer id, @PathVariable Resource resourceDetails) {
+    public Serializable updateResource(@PathVariable Integer id, @RequestBody Resource resourceDetails) {
         Resource findRez = resourceService.resourceRepository.findById(id).orElse(null);
         resourceService.updateResource(id, resourceDetails);
         return findRez;
