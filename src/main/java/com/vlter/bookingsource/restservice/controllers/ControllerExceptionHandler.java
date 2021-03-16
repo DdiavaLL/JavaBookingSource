@@ -58,7 +58,13 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<ControllerException>(new ControllerException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Ошибка во время добавления нового ресурса!"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(IncorrectReservationSaveException.class)
     protected ResponseEntity<ControllerException> handleIncorrectReservationSaveException() {
         return new ResponseEntity<ControllerException>(new ControllerException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Ошибка во время добавления новой резервации ресурса!"), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(DuplicateReservationSaveException.class)
+    protected ResponseEntity<ControllerException> handleDuplicateReservationSaveException() {
+        return new ResponseEntity<ControllerException>(new ControllerException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Попытка зарезервировать занятый ресурс!"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

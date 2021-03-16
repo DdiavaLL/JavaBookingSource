@@ -1,5 +1,6 @@
 package com.vlter.bookingsource.restservice.services;
 
+import com.vlter.bookingsource.restservice.exceptions.DuplicateReservationSaveException;
 import com.vlter.bookingsource.restservice.exceptions.IncorrectReservationSaveException;
 import com.vlter.bookingsource.restservice.exceptions.ThereIsNoSuchReservationException;
 import com.vlter.bookingsource.restservice.models.Reservation;
@@ -53,7 +54,11 @@ public class ReservationService {
         try {
             newReservation.setReservationuser(helpReservationUser);
             newReservation.setResource(helpResource);
-            rezReservation = reservationRepository.save(newReservation);
+            List<Reservation> resourseClones = reservationRepository.findByResourceIs(helpResource);
+            if (resourseClones.size() != 0)
+                throw new DuplicateReservationSaveException();
+            else
+                rezReservation = reservationRepository.save(newReservation);
         } catch (Exception e) {
             e.printStackTrace();
             throw new IncorrectReservationSaveException();
